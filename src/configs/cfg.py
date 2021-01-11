@@ -20,3 +20,4 @@ def DefaultCFG(AutoDict) -> AutoDict:
         """
             Iterate over config and validate data structure
         """
+        pass

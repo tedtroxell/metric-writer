@@ -4,7 +4,7 @@ from src.configs.cfg import AutoDict
 
 
 
-class SimpleClassification(DefaultInterface):
+class SimpleClf(DefaultInterface):
 
     main_tag        = 'Classifier'
-    metrics         = [ AutoDict(name=fn) for fn in 'accuracy,f1,roc_auc'.split(',') ]
+    metrics         = [ AutoDict(name=fn) for fn in 'accuracy_score,f1_score,roc'.split(',') ]
