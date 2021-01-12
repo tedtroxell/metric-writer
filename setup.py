@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 setup(name='metric_writer',
       version='0.0.1',
@@ -8,5 +8,6 @@ setup(name='metric_writer',
       author='Ted Troxell',
       author_email='ted@tedtroxell.com',
       url='https://tedtroxell.com',
-      packages=['metric-writer'],
+      zip_safe=False,
+      packages=find_packages(),
      )

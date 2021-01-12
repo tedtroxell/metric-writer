@@ -1,21 +1,46 @@
 
 import abc
+from torch import Tensor
+from enum import Enum
+class ConfigType(Enum):
+    unknown         =   -1
+    classification  =   0
+    regression      =   1
+    reinforcement   =   2
 
-class DefaultInterface(metaclass=abc.ABCMeta):
+class DefaultConfigInterface(metaclass=abc.ABCMeta):
     """
-        Listen, I know that the class name says "Interface" and then I'm making Abstract Class, but it's Python, give me a break.
+        Listen, I know that the class name says "Interface" and then I'm making an Abstract Class, but it's Python, give me a break.
     """
-    
-    def __init__(self,*args,**kwargs):
-        super( DefaultInterface,self ).__init__(*args,**kwargs)
-        print(args,kwargs)
+    config_type = ConfigType.unknown
 
     @staticmethod
     @abc.abstractmethod
-    def auto_config(cls:'DefaultInterface', model:object):
+    def auto_config(model:object) -> 'DefaultConfigInterface':
         """
             Autogenerate a default config from an arbitrary model.
         """
-        pass
+        from src.configs.defaults import SimpleClf,SimpleRgr
+        final_layer = list(model.children())[-1]
+        return SimpleClf if final_layer.out_features > 1 else SimpleRgr
+        
+
+    @abc.abstractmethod
+    def sanitize_inputs(self, output : Tensor, labels : Tensor) -> (Tensor,Tensor):
+        """
+            For different types of models, you'll need to coerce the data differently. 
+            Regression Models:
+                Convert to numpy arrays and return
+            Classification Models:
+                Take the ArgMax (for right now), convert to a numpy array and return
+        """
+        return {
+            ConfigType.unknown: lambda a,b : (a.clone().detach(),b.clone().detach()),#(raise ValueError('Config Type has not been set. Unable to determine how to sanitize inputs!')),
+            ConfigType.classification: lambda a,b : (a.clone().detach().argmax(dim=-1).numpy(), b.clone().detach().argmax(dim=-1).numpy()),
+            ConfigType.regression: lambda a,b : (a.clone().detach(),b.clone().detach())
+        }[ self.config_type ]( output,labels )
+
+
+
 
     

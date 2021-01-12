@@ -10,7 +10,7 @@ class BasicTest(unittest.TestCase):
         loss = nn.L1Loss() # it doesn't really matter all that much for right now, though later I'll test them all
         clf = make_classifier()
         mw = MetricWriter( SimpleClf )
-        self.assert_( mw.cfg is not None,mw.cfg )
+        self.assertTrue( mw.cfg is not None,mw.cfg )
         for _ in range(20):
             x,y = make_data()
             y_hat = clf(x)
