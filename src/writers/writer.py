@@ -1,6 +1,6 @@
 
 from typing import Union
-from src.configs.cfg import DefaultCFG
+from metric_writer.src.configs.cfg import DefaultCFG
 from torch import Tensor
 class MetricWriter:
     """
@@ -12,11 +12,11 @@ class MetricWriter:
                 )-> 'MetricWriter': 
         from torch.utils.tensorboard import SummaryWriter
         import sklearn.metrics as metrics
-        from src.configs.interface import DefaultConfigInterface
+        from metric_writer.src.configs.interface import DefaultConfigInterface
 
         # check for user provided config, 
         # if not present fallback to default
-        self.cfg = DefaultCFG( cfg if isinstance( cfg, dict ) else None ) if not issubclass(cfg,DefaultConfigInterface) else cfg
+        self.cfg = DefaultCFG( cfg if isinstance( cfg, dict ) else None ) if not issubclass(cfg.__class__,DefaultConfigInterface) else cfg
         self.writer = SummaryWriter()
         self.metrics = metrics
         self.custom_functions = {}
@@ -37,7 +37,7 @@ class MetricWriter:
 
     @staticmethod
     def from_model(model):
-        from src.configs.interface import DefaultConfigInterface
+        from metric_writer.src.configs.interface import DefaultConfigInterface
         return MetricWriter( DefaultConfigInterface.auto_config( model ) )
 
     def close(self):self.writer.close()

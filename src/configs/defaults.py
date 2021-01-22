@@ -1,6 +1,6 @@
 
-from src.configs.interface import DefaultConfigInterface,ConfigType
-from src.configs.cfg import AutoDict
+from metric_writer.src.configs.interface import DefaultConfigInterface,ConfigType
+from metric_writer.src.configs.cfg import AutoDict
 
 class SimpleClf(DefaultConfigInterface):
     """
