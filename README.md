@@ -1,4 +1,7 @@
 # Metric Writer
+![GitHub all releases](https://img.shields.io/github/downloads/tedtroxell/metric-writer/total?logo=github&style=flat-square)
+![GitHub](https://img.shields.io/github/license/tedtroxell/metric-writer?style=flat-square)
+
 
 Metric Writer is a small lightweight module that easily and automatically records performance metrics for you. 
 Right now, Metric Writer is only compatible with Pytorch. There are a lot of great tools out there like [Pytoch Lighting](https://github.com/PyTorchLightning/pytorch-lightning) that have built in loggers. Although there is nothing wrong with these tools (in fact, I'm a big fan), I find myself writing the same few lines of code over and over and over again, just to log the same metrics. I hate redundancy, so I wrote a tool to fix that issue. You're still able to use the same libraries, but now you don't have to code as much.
