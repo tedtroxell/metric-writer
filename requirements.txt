@@ -1,1 +1,4 @@
 tensorboad>=1.15.0
+crc32c
+soundfile
+tensorboardx
