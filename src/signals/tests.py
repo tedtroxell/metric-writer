@@ -7,7 +7,7 @@ class MomentOutlierTest(TestCase):
     def setUp(self):
         
         self.eps = 1e-2 # threshold for differences in data evaluation
-
+    
     def test_scalar_mean(self):
         
         Signal = MomentOutlierSignal()

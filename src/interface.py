@@ -1,7 +1,7 @@
 import inspect
 from typing import Union
 
-
+BaseInterface=None
 class BaseInterface(object):
 
     callbacks       = {}
@@ -18,12 +18,12 @@ class BaseInterface(object):
             else: cblk( output,**self.callback_kwargs[fname]  )
         return output
 
-    def register_callback(self,fn : callable,**kwargs : dict = {} ) -> BaseSignal:
+    def register_callback(self,fn : callable,**kwargs ) -> BaseInterface:
         self.callbacks[fn.__name__] = fn
         self.callback_kwargs[fn.__name__] = kwargs
         return self
     
-    def unregister_callback(self,fn : Union[callable,str]) -> BaseSignal:
+    def unregister_callback(self,fn : Union[callable,str]) -> BaseInterface:
         name = fn if isinstance( fn, str ) else fn.__name__
         del self.callbacks[name]
         del self.callback_kwargs[name]

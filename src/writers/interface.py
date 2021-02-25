@@ -34,9 +34,9 @@ class BaseWriter(BaseInterface):
         return self
 
     @staticmethod
-    def from_model(model) -> MetricWriter:
+    def from_model(model) -> BaseWriter:
         from metric_writer.src.configs.interface import DefaultConfigInterface
-        return MetricWriter( DefaultConfigInterface.auto_config( model ) )
+        return BaseWriter( DefaultConfigInterface.auto_config( model ) )
 
     def close(self):self.writer.close()
 
